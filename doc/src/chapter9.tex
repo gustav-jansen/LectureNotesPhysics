@@ -307,6 +307,7 @@ i.e. the so called "Metropolis-Hastings algorithm"~\cite{Metropolis53,Hastings70
 	\end{equation}
 	with $\alpha =x,y,z$, and $i=1\dots A$. This choice has the advantage of being symmetric. If we imagine
 	to store our configuration in an array $R[0...2][0...A-1]$ the implementation of this step would read:
+\begin{svgraybox}
 	\begin{algorithmic} 
 		\State{MC\_Move()}
 		\For{$i \in \{0,A-1\}$}  
@@ -315,6 +316,7 @@ i.e. the so called "Metropolis-Hastings algorithm"~\cite{Metropolis53,Hastings70
 		\EndFor
 		\EndFor
 	\end{algorithmic}
+\end{svgraybox}
     We will assume that the function ${\rm rand}()$ generates a random number uniformly distributed
     in $[0,1)$.
     \item 
@@ -324,6 +326,7 @@ i.e. the so called "Metropolis-Hastings algorithm"~\cite{Metropolis53,Hastings70
     \end{equation}
     \item
     Next we need to decide whether we keep the proposed configuration as the next element in the chain or if we want to resort to the original one. If we define ${\rm acc} = A(R'\leftarrow R)$, then:
+\begin{svgraybox}
     	\begin{algorithmic} 
     		\State{Accept\_reject()}
     		\State{$\xi = \text{rand}()$}
@@ -331,16 +334,19 @@ i.e. the so called "Metropolis-Hastings algorithm"~\cite{Metropolis53,Hastings70
 	    		\State{$R[i][j]\gets R_{new}[i][j]$}
     		\EndIf
     	\end{algorithmic}
+\end{svgraybox}
     	\item
     	According to the Central Limit Theorem, we now need to cumulate the values of the rest of the integrand. In the case of our variational calculation we need to sum up the local energies.
     	Notice that this step has to be taken whatever the result of the procedure described at the previous point. If we want to estimate the statistical error, we also need to cumulate the {\it square}
     	of the local energy. 
+\begin{svgraybox}
     	\begin{algorithmic} 
     	   \State{Acuest()}
     	   \State{$\text{eloc}\gets \frac{\hat{H}\Psi_T(R)}{\Psi_T(R)}$}
     	   \State{$\text{ecum}\gets \text{ecum} + \text{eloc}$}
     	   \State{$\text{ecum2}\gets \text{ecum2} + \text{eloc}*\text{eloc}$}
     	   \end{algorithmic}
+\end{svgraybox}
     	\item
     	Steps 2 to 5 need to be repeated $N_{steps}$ times, where $N_{steps}$ must be sufficiently large to provide a small enough statistical error. The final estimate of the energy is given by
     	$\langle E\rangle \pm \Delta E$, where:
@@ -459,12 +465,15 @@ and impose the boundary condition that the function becomes a constant at a dist
 \tilde{f}(r)=e^{-b\log f(r_{ij})}
 \end{equation}
 The function $f$ is usually determined by numerically solving Eq.(\ref{EqJas}) with the Numerov or Runge-Kutta methods. One has to be careful that the resulting table has to be interpolated to compute the function at an arbitrary distance. Therefore it is important to choose an appropriate number of points (usually of the order of a few thousands).  
+\begin{figure}
+	\
+\end{figure}
 Single particle orbitals can also be either tabulated or computed analytically. Tabulation guarantees in general a faster computation at the price of a loss in numerical accuracy.
 
 In the code it is necessary to compute derivatives of the wavefunction in order to estimate the local energy. This can be done either numerically or analytically. A very good test for checking that there are no major mistakes either in the Monte Carlo evaluation of integrals or in the computation of the local energy is to use the so-called {\it Jackson-Feenberg} identity for the kinetic energy.
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/qvar.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/qvar.eps}
 	\end{center}
 	\caption{An example of variational minimization of the energy. The estimate of the binding energy of a $^4$He nucleus described by the Minnesota potential is here plotted as a function of the quencher parameter $q$, for a fixed value of the healing distance $h$ (see text). The dotted line serves as a guide for the eye.}
 	\label{fig.var}
@@ -495,7 +504,7 @@ We can sum Eq.(\ref{T_PB}) and Eq. (\ref{T_JF1}), and divide by 2 in order to ob
 \end{equation}
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/jas.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/jas.eps}
 	\end{center}
 	\caption{The central channel of the Minnesota potential (dashed-dotted line), and the corresponding numerical Jastrow function (solid line) evaluated for $h=3.1$, $q=1.4$, and $b=1$.}
 	\label{fig.var}
@@ -647,7 +656,7 @@ the solution of Eq.~\eqref{eq:srpar} early on in the optimization process and th
 Eq.~\eqref{eq:lmpar} when the resulting norm of the variation is below some threshold.
 
 \section{Projection Monte Carlo Methods in coordinate space}
-\subsection{Propagation in imaginary time}
+%\subsection{Propagation in imaginary time}
 \subsection{General formulation}
 \label{sec:generaldmc}
 Variational calculations provide only an upper bound for the ground-state eigenvalue of a 
@@ -765,6 +774,7 @@ $\eta$ distributed as:
 P[\eta]=\frac{1}{\sqrt{2\pi D \Delta\tau}}e^{-\frac{\eta^2}{2D\Delta\tau}}
 \end{equation}
 and add it to to the original coordinate. 
+\begin{svgraybox}
 	\begin{algorithmic} 
 		\State{DMC\_Move()}
 		\For{$i \in \{0,A-1\}$}  
@@ -773,6 +783,7 @@ and add it to to the original coordinate.
 		\EndFor
 		\EndFor
 	\end{algorithmic}
+\end{svgraybox}
 The function $\text{rgaus}()$ generating normally-distributed random numbers is now universally available as a library routine, but it can easily be implemented starting from a uniform distribution by using the Box-Muller formula. 
 The part of the propagator depending on the potential has a slightly different interpretation. In the classical analogy we could say that the factor $W=e^{-\frac{\Delta\tau}{2}(V(R^M)-E_0)}$ represents 
 the probability of a process to occur by which new points might be created in the time interval $\Delta\tau$ (if $W>1$) or destroyed (if $W<1$), or in other words, a process related to the presence of a source or a sink of walkers. $W$ is interpreted as the average number of walkers that this
@@ -855,7 +866,7 @@ A very simple illustration of the sense of the algorithm can be made by implemen
 \end{equation}
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/hists.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/hists.eps}
 	\end{center}
 	\caption{Histogram of the walker population after $N$ DMC imaginary time steps for the harmonic oscillator Hamiltonian described in text. Here we used $\Delta\tau=10^{-3}$, with a target population of 4000 walkers.}
 	\label{fig.hist}
@@ -863,7 +874,7 @@ A very simple illustration of the sense of the algorithm can be made by implemen
 The ground-state eigenvalue is $E_0=\tfrac{1}{2}$ and the ground-state eigenfunction is the Gaussian $\Psi_0(x)=\frac{1}{\pi^{1/4}}e^{-\frac{x^2}{2}}$. As we have illustrated in the previous section, the propagation can start from any distribution of points with a density not orthogonal to the ground state. A very simple choice in this case is a constant. In Fig.\ref{fig.hist} we can see how the histogram of the walkers evolves as a function of the imaginary time applying the algorithm described in the previous section, including population control. The initial uniform distribution of walkers in the interval $[-6,6]$ is transformed into the correct Gaussian density. The mechanism that leads to this result is easy to understand. Any walker finding itself after diffusion in a region where the potential is larger than the eigenvalue will tend to be suppressed, while walkers near the origin will tend to multiply themselves. This will result in a histogram peaked at the origin ad decaying fast to zero when moving away from it.
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/dmc_decay.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/dmc_decay.eps}
 	\end{center}
 	\caption{Logarithm of the estimated energy averaged over a single generation as a function of the imaginary time in a run with a population target of 4000 walkers, and with an imaginary time step $\Delta\tau=10^{-4}$}
 	\label{fig.decay}
@@ -883,7 +894,7 @@ where the sums runs first over all the generations (i.e. the imaginary time step
 In Fig. \ref{fig.decay} we show the logarithm of the energy estimator averaged over each single generation as a function of the imaginary time. As we would expect from the general behavior of the coefficients of the excited states as function of the imaginary time, we see a clear exponential decay of the energy towards the exact eigenvalue. The figure clearly shows how the transient is not made up of a single exponential. The initial state needs includes a large number of excited states, that all need to be projected out before reaching the ground state.
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/walkers_dmc.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/walkers_dmc.eps}
 	\end{center}
 	\caption{Typical fluctuations of the walker population in a DMC run for the one dimensional harmonic oscillator. The target population in this case is 2000. The imaginary time step is
 		set to $\Delta\tau=0.075$. }
@@ -892,7 +903,7 @@ In Fig. \ref{fig.decay} we show the logarithm of the energy estimator averaged o
 In Fig. \ref{fig.walkers}the typical behavior of the fluctuation in the walker number is reported. In the specific case the time step was set to $\Delta\tau=0.3$. Nevertheless, the walker number never departs from the target by more than 3\%. This is the effect of the population control procedure described in the previous subsection. Unfortunately population control alone is not sufficient to guarantee a stable calculation. In presence of particle-particle interactions that diverge at the origin fluctuations in the number of walkers become extremely wide. This is the reason why it is necessary to introduce the so-called importance sampling, that we will discuss in a later section.
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{Chapter9-figures/dmc_extr.jpg}
+		\includegraphics[scale=0.5]{Chapter9-figures/dmc_extr.eps}
 	\end{center}
 	\caption{TIllustration of the imaginary time-step extrapolation procedure. The energy is computed for different values of $\Delta\tau$, and the results are fitted with a linear function. The intercept will give the correct prediction for the eigenvalue. Notice that the results should still be extrapolated for an infinite population. Here we use a target number of walkers equal to 2000, and the runs consist of $10^5$ generations each. Errorbars refer to one standard deviation. The plotted value for $\Delta\tau=0$ and the corresponding errorbar are obtained from the linear fit of the data. }
 	\label{fig.extr}
@@ -967,6 +978,7 @@ The algorithm including impotance sampling is modified in the following way.
 \item
    For each walker, and for each coordinate perform a "drift" move along the
    gradient of the guiding function. This displacement is deterministic.
+\begin{svgraybox}
  	\begin{algorithmic} 
  		\State{DMC\_Drift()}
  		\For{$i \in \{0,A-1\}$}  
@@ -975,6 +987,7 @@ The algorithm including impotance sampling is modified in the following way.
  		\EndFor
  		\EndFor
  	\end{algorithmic}
+\end{svgraybox}
 \item
 Cycle again over coordinates and diffuse the position from $R_{drift}$ as in the non-importance sampled case.
 \item
@@ -991,7 +1004,7 @@ This means that it is possible to evaluate integrals of the form:
 \begin{equation}
 \langle O\rangle=\frac{\int dR f(R) O(R)}{\int dR f(R)}.
 \end{equation}
-As in the previous case the evaluation of the exact energy eigenvalue can be easily obtained by using the local energy. In fact, the matrix element of the Hamiltonian between the guiding function\footnote{It is always possible to project the energy from a function $\Psi_T$ other than $\Psi_G$, by introducing a further weighing factor $\frac{\Psi_T}{\Psi_G}$. However this is used very rarely in standard applications.}  and the ground-state wavefunction is:  
+As in the previous case the evaluation of the exact energy eigenvalue can be easily obtained by using the local energy. In fact, the matrix element of the Hamiltonian between the guiding function\footnote{It is always possible to project the energy from a function $\Psi_T$ other than $\Psi_G$, by introducing a further weighing factor $\frac{\Psi_T}{\Psi_G}$. However this is very rarely used in standard applications.}  and the ground-state wavefunction is:  
 \begin{equation}
 \langle E\rangle =\frac{\langle \phi_0|\hat{H}|\Psi_G\rangle}{\langle \phi_0|\Psi_G\rangle}=\frac{\int dR f(R)\frac{\hat{H}\Psi_G(R)}{\Psi_G(R)}}{\int dR f(R)}
 \end{equation}
@@ -2644,6 +2657,7 @@ order to this we simply choose a target time-step $\tau_t$ at the beginning then
 from Eq.~\eqref{sampled_tau}, if $\tau_{\xi} > \tau_t$ we set $\tau=\tau_t$ and use correspondingly a diagonal move if instead $\tau_{\xi} < \tau_t$ 
 we have to sample an off--diagonal move. The process is preformed until the sum of all the sampled $\tau_{\xi}$ reaches the target time $\tau_t$. 
 The final algorithm for a single walker at $\rvert \mathbf{n}\rangle$ is then as follows: 
+\begin{svgraybox}
 \begin{algorithmic} 
 \State{EXP\_Move()}
 \State{$\tau=\tau_t$}
@@ -2667,6 +2681,7 @@ The final algorithm for a single walker at $\rvert \mathbf{n}\rangle$ is then as
   \State{$\mathbf{n}\to\mathbf{m}$}
 \EndLoop
 \end{algorithmic}
+\end{svgraybox}
 where the function $HeatBath[P,\mathbf{n}]$ generates a new configuration according to the probability $P$ (eg. Eq.~\eqref{eq:heba}) starting 
 from the current state $\mathbf{n}$. In Problem~\ref{prob:heatbath} you will try to devise an implementation of this function.
 
@@ -2676,6 +2691,7 @@ the Hamiltonian and the overlap with the trial function $\Psi_T(\mathbf{m})$. Th
 of fundamental importance to reach medium-sized systems. We can show this for the simple case of a homogeneous system with only two-body interactions
 so that the connected states will be all the possible 2-particle--2-hole excitations that can be obtained from the initial state $\rvert\mathbf{n}\rangle$.
 Neglecting the construction of the transformed matrix $\widetilde{H}$, we can then implement the calculation of the local energy as
+\begin{svgraybox}
 \begin{algorithmic} 
 \State{EL\_calc1()}
 \State{$E_L=0$}
@@ -2691,11 +2707,13 @@ Neglecting the construction of the transformed matrix $\widetilde{H}$, we can th
 \EndFor
 \State{$E_L=E_L/4$}
 \end{algorithmic}
+\end{svgraybox}
 where $occ(\mathbf{n})$ is the set of single-particle states that are occupied in the initial state $\mathbf{n}$. The above algorithm requires $O(N_{occ}^2{\cal N}_s^2)$
 evaluations of the Hamiltonian. Many of these are however equivalent to other ones or just zero. For instance all the terms with $i=j$ or $a=b$ give zero
 due to the Pauli principle. If we fix an ordering of the single particle orbitals in the many--body states and use anti-symmetrized matrix elements the configurations 
 obtained interchanging eg. $i\leftrightarrow j$ are equivalent. Finally if both momentum and spin are conserved, given the triple $(i,j,a)$ there exist only one single
 particle state $b$ allowed. An implementation like
+\begin{svgraybox}
 \begin{algorithmic} 
 \State{EL\_calc2()}
 \State{$E_L=0$}
@@ -2711,11 +2729,49 @@ particle state $b$ allowed. An implementation like
   \EndFor
 \EndFor
 \end{algorithmic}
+\end{svgraybox}
 will take now only $O(N_{occ}^2{\cal N}_s)$ evaluations of the Hamiltonian at most, and with a reduced prefactor with respect to the previous version. The function $FourthState$ returns 
 the only single particle state allowed by simmetry. 
 
-In the case of nuclear hamiltonians the spin won't be conserved anymore, how will you modify EL\_calc2 to take that into account?
+\subsection{Results}
+The combination of imaginary time projection, use of importance function derived from CC calculations and no time-step error propagator make up the algorithm that goes under the name of Configuration Interaction Monte Carlo (CIMC).
+Actual calculations with CIMC require a substantial amount of CPU time. Here we report some results obtained by making use of a simplified Hamiltonian in which the nucleon-nucleon interaction is described by the Minnesota interaction.
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.5]{Chapter9-figures/cimc_convergence.eps}
+	\end{center}
+	\caption{Convergence of the CIMC energies as a function of the number of shells used for a periodic cell of 66 neutrons at different densities.}
+	\label{fig.cimc_conv}
+\end{figure}
+The system under investigation is homogeneous pure neutron matter (PNM). In QMC calculations PNM is typically modeled as a periodic system containing A neutrons. The cell size is adjusted in such a way that the average density of the system is $\rho$.
 
+In Fig. \ref{fig.cimc_conv} we show how the computed energy depends on the number of plane wave shells included in the model space. As it can be seen, it is necessary to pay attention to the convergence of th results, which can strongly depend on the specific details of the system. In this case, for instance, one can easily see how convergence is faster when the density is increased. 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.5]{Chapter9-figures/cimcccd.pdf}
+	\end{center}
+	\caption{Equation of state of neutron matter modeled as a periodic cell containing A=66 neutrons using the CIMC method and coupled cluster theory with doubes correlations. Single-particle states up to $N_{\mathrm{max}}=36$ have been included.}
+	\label{fig.cimc_eos}
+\end{figure}
+
+In Fig. \ref{fig.cimc_eos} the energy computed by CIMC shown for the same neutron matter model as a function of the density (the so called "Equation of State" of neutron matter) is compared with the coupled theory results with doubles (CCD) only discussed in the previous chapter. 
+In this calculation single-particle states up to $N_{\mathrm{max}}=36$ have been used. The CIMCC and CCD results are converged to the fifth digit as function of 
+$N_{\mathrm{max}}$. The agreement between the two methods is at the level of the third digit after the decimal point for neutron matter with the 
+Minnesota interaction. This is a striking agreement between such different many-body methods, in particular for larger densities where correlations and contributions from states above and below the Fermi level play a larger role, as seen from the difference between the reference energy and the CIMC and CCD energies.
+Most likely, there will be larger differences between different many-body methods when proton correlations are brought in, as well as when more realistic interaction models will be used. Such results will be presented elsewhere. In the next two chapters we will add results using two  additional many-body methods, the in-medium SRG approach described in chapter 10 and the Green's function approach of chapter 11.  
+
+\section{Conclusions and perspectives}
+
+Quantum Monte Carlo methods are still one of the most powerful tools to attack general many body problems, and in particular the many-nucleon problem. Despite the fact that the Fermion sign problem prevents us so far from having strictly exact results for the solution of the Schroedinger equation, the accuracy that can be reached is very high, and in any cases it constitutes the current benchmark.
+
+Another important general feature of QMC calculations is that they provide a very flexible framework in which it is possible to explore from low temperature condensed helium, to trapped fermions, from atoms and molecules ad solid state devices to nuclei and eventually lattice QCD. It is not rare that technical improvements spread across different disciplines, and the development of te method itself is a common ground that is often the subject of interdisciplinary workshops and conferences.  
+
+In the field of nuclear physics it is possible that Fock-space based methods will eventually become the standard. Their main feature is the possibility of dealing with non-local interactions, which makes it possible to extend the use of QMC to the original formulations of $\xi$-EFT potentials, and a whole class of soft-core interactions that so far have never been used in this context. On the other hand, the availability of more and more accurate versions of the AFDMC codes will open the access of accurate studies of the equation of state f neutron and nuclear matter, and of general baryonic matter of extreme importance for astrophysical applications, concerning in particular the physics of neutron stars. The possibility of extending accurate calculations to large $A$ systems is also crucial for understanding the phenomenology of exotic beams.
+
+In this chapter we did not deal with the problem of evaluating excited states and dynamical quantities within a QMC framework. Several methods are nowadays available, mostly based on the evaluation of the Laplace transform of a given response function by means of the calculation of imaginary time correlation functions. Many technical advances have been recently made in this field (see e.g. Refs. \cite{Galli, RoggeroHe, Lovato1,Lovato2}), and the subject is still under very active investigation. 
+
+Finally, the hardest wall to climb remains the solution of the Fermion sign problem. Although there are claims that the problem is NP complete (which is true in general), thereby preventing any solution within standard classical computation, there are hints that many Hamiltonians of interest might admit a viable solution with polynomial scaling in $A$. This problem would definitely deserve more efforts than those that are presently devoted to its solution.  
 \section{Problems}
  \begin{prob}
   Evaluate the following integral by means of the Metropolis algorithm
@@ -2758,13 +2814,11 @@ In the case of nuclear hamiltonians the spin won't be conserved anymore, how wil
   \label{prob:heatbath}
         Implement the function $HeatBath[P,\mathbf{n}]$ that appears in the algorithm EXP\_Move() in Sec.~\ref{sec:expprop}.
   \end{prob}
-
-
+\begin{prob}
+In the case of nuclear Hamiltonians spin is not a conserved quantity. Referring to the calculation of the local energy in Sec. 9.6.4, how would you modify the subroutine EL\_calc2 to take into account the non-conservation of spin?
+\end{prob}
   
-%\begin{acknowledgement}
-%If you want to include acknowledgments of assistance and the like at the end of an individual chapter please use the \verb|acknowledgement| environment -- it will automatically render Springer's preferred layout.
-%\end{acknowledgement}
-%
+
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
 In this appendix we give the proof of the upper--bound property for the auxiliary hamiltonians $\mathcal{H}_{\gamma}$, defined in Sec.~\ref{subsect:CCDMC-IS}, for
@@ -2833,25 +2887,6 @@ for a complex--hermitian hamiltonian, we can then express the sums by allowing o
 \end{equation}
 which by definition is positive. The extension to the case with $\gamma>0$ is straightforward since we are basically adding a positive constant to the difference.
 
-%
-%
-%***
-%When placed at the end of a chapter or contribution (as opposed to at the end of the book), the numbering of tables, figures, and equations in the appendix section continues on from that in the main text. Hence please \textit{do not} use the \verb|appendix| command when writing an appendix at the end of your chapter or contribution. If there is only one the appendix is designated ``Appendix'', or ``Appendix 1'', or ``Appendix 2'', etc. if there is more than one.
-%***
-%\biblstarthook{References may be \textit{cited} in the text either by number (preferred) or by author/year.\footnote{Make sure that all references from the list are cited in the text. Those not cited should be moved to a separate \textit{Further Reading} section or chapter.} The reference list should ideally be \textit{sorted} in alphabetical order -- even if reference numbers are used for the their citation in the text. If there are several works by the same author, the following order should be used: 
-%\begin{enumerate}
-%\item all works by the author alone, ordered chronologically by year of publication
-%\item all works by the author with a coauthor, ordered alphabetically by coauthor
-%\item all works by the author with several coauthors, ordered chronologically by year of publication.
-%\end{enumerate}
-%The \textit{styling} of references\footnote{Always use the standard abbreviation of a journal's name according to the ISSN \textit{List of Title Word Abbreviations}, see \url{http://www.issn.org/en/node/344}} depends on the subject of your book: \begin{itemize}
-%\item The \textit{two} recommended styles for references in books on \textit{mathematical, physical, statistical and computer sciences} are depicted in ~\cite{science-contrib, science-online, science-mono, science-journal, science-DOI} and ~\cite{phys-online, phys-mono, phys-journal, phys-DOI, phys-contrib}.
-%\item Examples of the most commonly used reference style in books on \textit{Psychology, Social Sciences} are~\cite{psysoc-mono, psysoc-online,psysoc-journal, psysoc-contrib, psysoc-DOI}.
-%\item Examples for references in books on \textit{Humanities, Linguistics, Philosophy} are~\cite{humlinphil-journal, humlinphil-contrib, humlinphil-mono, humlinphil-online, humlinphil-DOI}.
-%\item Examples of the basic Springer style used in publications on a wide range of subjects such as \textit{Computer Science, Economics, Engineering, Geosciences, Life Sciences, Medicine, Biomedicine} are ~\cite{basic-contrib, basic-online, basic-journal, basic-DOI, basic-mono}. 
-%\end{itemize}
-%}
-
 \begin{thebibliography}{99.}%
 \bibitem{Kalos08}
 M.H. Kalos and P.A Whitlock, \emph{Monte Carlo Methods-Second Edition}, Wiley-VCH (2008)
@@ -2914,11 +2949,19 @@ D. F. B. ten Haaf, H. J. M. van Bemmel, J. M. J. van Leeuwen, W. van Saarloos an
 \bibitem{Rrapaj16}
 E. Rrapaj, A. Roggero, and J. W. Holt, \emph{Microscopically constrained mean-field models from chiral nuclear thermodynamics}, Phys. Rev. C {\bf 93}, 065801 (2016)
 \bibitem{Kalos74}
-M. H. Kalos, D. Levesque, and L. Verlet, \emph{Helium at zero temperature with hard-sphere and other forces} ,Phys. Rev. A {\bf 9}, 2178 (1974)
+M. H. Kalos, D. Levesque, and L. Verlet, \emph{Helium at zero temperature with hard-sphere and other forces}, Phys. Rev. A {\bf 9}, 2178 (1974)
 \bibitem{Holmes16}
-A. Holmes, H. J. Changlani and C.J. Umrigar, \emph{Efficient heat-bath sampling in Fock space}, J. Chem. Theory Comput., {\bf 12}, 1561 (2016) 
+A. Holmes, H. J. Changlani and C.J. Umrigar, \emph{Efficient heat-bath sampling in Fock space}, J. Chem. Theory Comput. {\bf 12}, 1561 (2016) 
 \bibitem{Kolodrubetz12}
 M. Kolodrubetz and B. K. Clark, \emph{FCI-QMC approach to the Fermi polaron}, Phys. Rev. B {\bf 86}, 075109 (2012).
+\bibitem{Galli}
+E. Vitali, M. Rossi, L. Reatto, and D. E. Galli, \emph{Ab initio low-energy dynamics of superfluid and solid $^4$He}, Phys. Rev. B {\bf 82}, 174510 (2010).
+\bibitem{RoggeroHe}
+A. Roggero, F. Pederiva, and G. Orlandini, \emph{Dynamical structure functions from quantum Monte Carlo calculations of a proper integral transform}, Phys. Rev. B {\bf 88}, 094302 (2013)
+\bibitem{Lovato1}
+A. Lovato, S. Gandolfi, R. Butler, J. Carlson, E. Lusk, S. C. Pieper, and R. Schiavilla, \emph{Charge Form Factor and Sum Rules of Electromagnetic Response Functions in $^{12}$C}, Phys. Rev. Lett. {\bf 111}, 092501, 2013
+\bibitem{Lovato2}
+A. Lovato, S. Gandolfi, J. Carlson, S. C. Pieper, and R. Schiavilla, \emph{Electromagnetic and neutral-weak response functions of $^4$He and $^{12}$C}, Phys. Rev. C {\bf 91},062501(R) (2015)
 \end{thebibliography}
 
 

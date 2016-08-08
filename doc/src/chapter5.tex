@@ -1,10 +1,10 @@
 \label{chap:chapter5}
 \newcommand\mpi {m_{\pi}}
-\newcommand\qslash {\slashed{q}}
+%\newcommand\qslash {\slashed{q}}
 %\newcommand{\note}[1]{{\bf \textcolor{red}{\uppercase{#1}}}}
 \newcommand\pslash {\slashed{p}}
 \newcommand\dslash {\slashed{\partial}}
-\newcommand\Dslash {\slashed{D}}
+%\newcommand\Dslash {\slashed{D}}
 \newcommand\psidag{\psi^{\dagger}}
 \newcommand\tautoinfty{\underset{\tau \to\infty}{\longrightarrow}}
 \newcommand\Eq[1]{Eq.~(\ref{eq:#1})}
@@ -16,10 +16,10 @@
 \newcommand\Sec[1]{Sec.~\ref{sec:#1}}
 \newcommand\Sect[1]{Section~\ref{sec:#1}}
 \newcommand\Tab[1]{Table~\ref{tab:#1}}
-\newcommand{\be}{\begin{equation}}
-\newcommand{\ee}{\end{equation}}
-\newcommand\beq{\begin{eqnarray}}
-\newcommand\eeq{\end{eqnarray}} 
+%\newcommand{\be}{\begin{equation}}
+%\newcommand{\ee}{\end{equation}}
+%\newcommand\beq{\begin{eqnarray}}
+%\newcommand\eeq{\end{eqnarray}} 
 \newcommand\eqn[1]{\label{eq:#1}} 
 \newcommand\eq[1]{eq.~(\ref{eq:#1})} 
 \newcommand\eqstwo[2]{eqs. (\ref{eq:#1},\ref{eq:#2})} 
@@ -90,9 +90,9 @@
 
 
 \section{\label{sec:intro}Introduction}
-Quantitative understanding of nuclear physics at low energies from first principles remains one of the most challenging programs in contemporary theoretical physics research. While physicists have for decades used models combined with powerful numerical techniques to successfully reproduce known nuclear structure data and make new predictions, currently the only tools available for tackling this problem that have direct connections to the underlying theory, Quantum Chromodynamics (QCD), as well as quantifiable systematic errors, are Lattice QCD and Effective Field Theory (EFT). Combined, these techniques may be used to not only quantify any bias introduced when altering QCD in order to make it computationally tractable, but also to better understand the connection between QCD and nuclear physics.
+Quantitative understanding of nuclear physics at low energies from first principles remains one of the most challenging programs in contemporary theoretical physics research. While physicists have for decades used models combined with powerful numerical techniques to successfully reproduce known nuclear structure data and make new predictions, currently the only tools available for tackling this problem that have direct connections to the underlying theory, Quantum Chromodynamics (QCD), as well as quantifiable systematic errors, are Lattice QCD and Effective Field Theory (EFT). In principle, when combined these techniques may be used to not only quantify any bias introduced when altering QCD in order to make it computationally tractable, but also to better understand the connection between QCD and nuclear physics.
 
-The lattice is a tool for discretizing a field theory in order to reduce the path integral, with an infinite number of degrees of freedom, to a finite-dimensional ordinary integral. By rendering the dimension finite (though extremely large), the integral may then be estimated on a computer using Monte Carlo methods. Errors introduced through discretization and truncation of the region of spacetime sampled are controlled through the spatial and temporal lattice spacings, $b_s,b_{\tau}$, and the spatial and temporal lengths, $L,\beta$. Thus, these errors may be quantified through the lattice spacing dependence of the observables, and often may be removed through extrapolation to the continuum and infinite volume limits.
+The lattice is a tool for discretizing a field theory in order to reduce the path integral, having an infinite number of degrees of freedom, to a finite-dimensional ordinary integral. After rendering the dimension finite (though extremely large), the integral may then be estimated on a computer using Monte Carlo methods. Errors introduced through discretization and truncation of the region of spacetime sampled are controlled through the spatial and temporal lattice spacings, $b_s,b_{\tau}$, and the number of spatial and temporal points, $L,N_{\tau}$. Thus, these errors may be quantified through the lattice spacing dependence of the observables, and often may be removed through extrapolation to the continuum and infinite volume limits.
 
 LQCD is a powerful and advanced tool for directly calculating low-energy properties of QCD. However, severe computational issues exist when calculating properties of systems with nucleons. Unfortunately, these problems grow rapidly with the number of nucleons in the system. 
 
@@ -106,11 +106,11 @@ where $M$ is the nucleon mass and $m_{\pi}$ is the pion mass \cite{Lepage:1989hd
 
 Starting from an EFT using nucleons as the fundamental degrees of freedom greatly reduces the consequences from both of these issues. EFTs also enjoy the same benefit as the lattice over traditional model techniques of having quantifiable systematic errors, this time controlled by the cutoff of the EFT compared to the energy regime studied. For chiral EFTs this scale is generally $\Lambda_{\chi} \sim m_{\rho} \sim 700$ MeV. Systematic errors can be reduced by going to higher orders in an expansion of $p/\Lambda_{\chi}$, where $p$ is the momentum scale probed, with the remaining error given by the size of the first order which is not included. In a potential model there is no controlled expansion, and it is generally unknown how much the results will be affected by leaving out any given operator. In addition, field theories provide a rigorous mathematical framework for calculating physical processes, and can be directly translated into a lattice scheme.
 
-Our discussion will begin with understanding a very basic nuclear EFT, pionless EFT, at leading order. We will then proceed to discretize this theory and set up a framework for performing Monte Carlo calculations of our lattice theory. We will then discuss how to calculate observables using the lattice theory, and how to understand their associated statistical uncertainties. Next we will discuss quantifying and reducing systematic errors. Then we will begin to add terms to our theory going beyond leading order pionless EFT. Finally, we will discuss remaining issues and highlight some successes of the application of these methods by several different groups.
+In these lecture notes we will explore the use of lattice methods for calculating properties of many-body systems starting from nuclear EFT, rather than QCD. Our discussion will begin with understanding a very basic nuclear EFT, pionless EFT, at leading order. We will then proceed to discretize this theory and set up a framework for performing Monte Carlo calculations of our lattice theory. We will then discuss how to calculate observables using the lattice theory, and how to understand their associated statistical uncertainties. Next we will discuss quantifying and reducing systematic errors. Then we will begin to add terms to our theory going beyond leading order pionless EFT. Finally, we will discuss remaining issues and highlight some successes of the application of these methods by several different groups.
 
 \section{Basics of Effective Field Theory and Lattice Effective Field Theory}
 \subsection{\label{sec:EFT}Pionless Effective Field Theory}
-The EFT philosophy that we will follow is to write down all possible operators involving the relevant degrees of freedom within some energy range (determined by the cutoff) that are consistent with the symmetries of the underlying theory. Each operator will be multiplied by an unknown low-energy constant which may be fixed by comparing an observable with experiment or lattice QCD. In order to reduce this generally infinite number of operators to a finite number we must also establish a power-counting rule for neglecting operators that do not contribute within some desired accuracy. This is a notoriously difficult problem for nuclear physics, and is in general observable and renormalization scheme dependent. Here, we will only briefly touch upon two common power-counting schemes, the so-called Weinberg and KSW expansions \cite{Weinberg:1990rz,Weinberg:1991um,Kaplan:1996xu,Kaplan:1998tg,Kaplan:1998we}. For reviews of these and other power-counting schemes, see \cite{Epelbaum:2008ga,Epelbaum:2010nr,Machleidt:2011zz}.
+To develop an EFT we will first write down all possible operators involving the relevant degrees of freedom within some energy range (determined by the cutoff) that are consistent with the symmetries of the underlying theory. Each operator will be multiplied by an unknown low-energy constant which may be fixed by comparing an observable with experiment or lattice QCD. In order to reduce this, in principle, infinite number of operators to a finite number we must also establish a power-counting rule for neglecting operators that do not contribute within some desired accuracy. This is a notoriously difficult problem for nuclear physics, and is in general observable and renormalization scheme dependent. Here, we will only briefly touch upon two common power-counting schemes, the so-called Weinberg and KSW expansions \cite{Weinberg:1990rz,Weinberg:1991um,Kaplan:1996xu,Kaplan:1998tg,Kaplan:1998we}. For reviews of these and other power-counting schemes, see \cite{Epelbaum:2008ga,Epelbaum:2010nr,Machleidt:2011zz}.
 
 The simplest possible nuclear EFT involves non-relativistic nucleon fields interacting via delta functions. This is known as a pionless EFT, and is only relevant for energy scales up to a cutoff $\Lambda \sim m_{\pi}$. Below this scale, the finite range of pion exchange cannot be resolved, and all interactions appear to be point-like. In this discussion we will closely follow that of Ref.~\cite{Kaplan:2005es}. For the moment, let's just consider a theory of two-component (spin up/down) fermion fields, $\psi$, with the following Lagrangian,
 \beq
@@ -143,13 +143,15 @@ where $a$ is the scattering length, $r_0$ is the effective range, and $r_1$ and 
 The scattering length may be used to describe the asymptotic behavior of the radial wavefunction. In particular, consider two-particles interacting via an attractive square-well potential. If the square-well is sufficiently strongly attractive, the wavefunction turns over and goes to zero at some finite characteristic length. This means the system is bound and the size of the bound state is given by the scattering length, $a$. On the other hand, if the wavefunction extends over infinite space, then the system is in a scattering state and the scattering length may be determined as the distance from the origin where the asymptote of the wavefunction intersects the horizontal axis (see \Fig{a0}). This implies that the scattering length in the case of a scattering state is negative. If the potential is tuned to give a system which is arbitrarily close to the crossover point from a bound state to a scattering state, corresponding to infinite scattering length, the state is described as being near unitarity, because the unitarity bound on the scattering cross section is saturated at this point. Note that this implies that the scattering length may be any size and is not necessarily associated with the scale set by the cutoff. However, such a scenario requires fine-tuning of the potential. Such fine-tuning is well-known to occur in nuclear physics, with the deuteron and neutron-neutron $s$-wave scattering being notable examples.
 
 \begin{figure}
-\caption{\label{fig:a0}Sketches of two-body radial wavefunctions vs. $r$ corresponding to various scattering lengths. From left to right: $a<0$, $a\to\infty$,$a>0$.}
+\begin{center}
 \includegraphics[width=0.3\linewidth]{Chapter5-figures/al0.png}
 \includegraphics[width=0.3\linewidth]{Chapter5-figures/ae0.png}
 \includegraphics[width=0.3\linewidth]{Chapter5-figures/ag0.png}
+\caption{\label{fig:a0}Sketches of two-body radial wavefunctions vs. $r$ corresponding to various scattering lengths. From left to right: $a<0$, $a\to\infty$,$a>0$.}
+\end{center}
 \end{figure}
 
-A many-body system composed of two-component fermions with an attractive interaction is known to undergo pairing between the species (higher $N$-body interactions are prohibited by the Pauli exclusion principle), such as in neutron matter, found in the cores of neutron stars, which is composed of spin up and spin down neutrons. At low temperature, these bosonic pairs condense into a coherent state. If the interaction is only weakly attractive, the system will form a BCS state composed of widely separated Cooper pairs, where the average pair size is much larger than the average interparticle spacing. On the other hand, if the interaction is strongly attractive then the pairs form bosonic bound states which condense into a Bose-Einstein condensate. The crossover between these two states corresponds to the unitary regime, and has been studied extensively in ultracold atom experiments, where the interaction between atoms may be tuned using a Feschbach resonance. In this regime, the average pair size is equal to the interparticle spacing (given by the inverse density), which defines the only scale for the system. Thus, all dimensionful observables one wishes to calculate for this system are determined by the appropriate power of the density times some dimensionless constant. 
+A many-body system composed of two-component fermions with an attractive interaction is known to undergo pairing between the species (higher $N$-body interactions are prohibited by the Pauli exclusion principle), such as in neutron matter, found in the cores of neutron stars, which is composed of spin up and spin down neutrons. At low temperature, these bosonic pairs condense into a coherent state. If the interaction is only weakly attractive, the system will form a BCS state composed of widely separated Cooper pairs, where the average pair size is much larger than the average interparticle spacing. On the other hand, if the interaction is strongly attractive then the pairs form bosonic bound states which condense into a Bose-Einstein condensate. The crossover between these two states corresponds to the unitary regime, and has been studied extensively in ultracold atom experiments, where the interaction between atoms may be tuned using a Feshbach resonance. In this regime, the average pair size is equal to the interparticle spacing (given by the inverse density), which defines the only scale for the system. Thus, all dimensionful observables one wishes to calculate for this system are determined by the appropriate power of the density times some dimensionless constant.  For a review of fermions in the unitary regime, see e.g., \cite{AtomsReview1,AtomsReview2}.
 
 \subsubsection{\label{sec:couplings}Two-body LECs}
 Returning to our task of setting the couplings using scattering parameters as input, we might consider comparing \Eq{leff} and \Eq{ere}, to determine the LEC $g_0$ using the scattering length, $g_2$ using the effective range, and so forth. To see how this is done in practice we may compute the scattering amplitude $A$ in the effective theory, and match the coefficients to the effective range expansion. Let's begin using only the first interaction term in the effective theory, corresponding to $g_0$. Diagrammatically, the scattering amplitude may be written as the sum of all possible bubble diagrams (see \Fig{bubblesum}). Because the scattering length may take on any value, as mentioned previously, we cannot assume that the coupling $g_0$ is small, so we should sum all diagrams non-perturbatively. The first diagram in the sum is given by the tree level result, $g_0$. If we assume that the system carries energy $E=p^2/M$, then the second diagram may be labeled as in \Fig{loop}, and gives rise to the loop integral,
@@ -184,13 +186,16 @@ g_0 = \frac{4\pi}{M} \frac{1}{\Lambda-1/a}
 between the coupling and the physical scattering length. 
 
 \begin{figure}
-\caption{\label{fig:bubblesum}Two-body scattering amplitude represented as a sum of bubble diagrams corresponding to a single contact interaction with coupling $g_0$.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/simple1}
+\caption{\label{fig:bubblesum}Two-body scattering amplitude represented as a sum of bubble diagrams corresponding to a single contact interaction with coupling $g_0$.}
+\end{center}
 \end{figure}
-
 \begin{figure}
-\caption{\label{fig:loop}Feynman diagram for a single bubble in \Fig{bubblesum}, giving rise to the loop integral \Eq{loop}.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/loop1}
+\caption{\label{fig:loop}Feynman diagram for a single bubble in \Fig{bubblesum}, giving rise to the loop integral \Eq{loop}.}
+\end{center}
 \end{figure}
 
 Note that the coupling runs with the scale $\Lambda$; the particular dependence is determined by the regularization and renormalization scheme chosen. In order to understand the running of the coupling we may examine the beta function. To do so we first define a dimensionless coupling,
@@ -205,8 +210,10 @@ then calculate
 This function is a simple quadratic that is plotted in \Fig{beta}. The beta function has two zeroes, $\hat{g}_0 = 0,1$, corresponding to fixed points of the theory. At a fixed point, the coupling no longer runs with the scale $\Lambda$, and the theory is said to be scale-invariant (or conformal, given some additional conditions). This means that there is no intrinsic scale associated with the theory. The fixed point at $\hat{g}_0=0$ is a trivial fixed point, and corresponds to a non-interacting, free field theory (zero scattering length). The other, non-trivial fixed point at $\hat{g}_0=1$ corresponds to a strongly interacting theory with infinite scattering length; this is the unitary regime mentioned previously. Here, not only does the scattering length go to infinity, as does the size of the radial wavefunction, but the energy of the bound state (as approached from $\hat{g}_0 > 1$) goes to zero and all relevant scales have vanished. Note that this is an unstable fixed point; the potential must be finely tuned to this point or else the theory flows away from unitarity as $\Lambda \to 0$ (IR limit).
 
 \begin{figure}
-\caption{\label{fig:beta}Beta function (\Eq{beta}) for the two-body contact interaction. Arrows represent the direction of flow toward the IR.}
+\begin{center}
 \includegraphics[width=0.5\linewidth]{Chapter5-figures/beta.pdf}
+\end{center}
+\caption{\label{fig:beta}Beta function (\Eq{beta}) for the two-body contact interaction. Arrows represent the direction of flow toward the IR.}
 \end{figure}
 
 Generally perturbation theory is an expansion around free field theory, corresponding to a weak coupling expansion. This is the approach used as part of the Weinberg power counting scheme for nuclear EFT \cite{Weinberg:1990rz,Weinberg:1991um}. However, in some scattering channels of interest for nuclear theory the scattering length is indeed anomalously large, such as the $^1S_0$ and $^3S_1$ nucleon-nucleon scattering channels, where
@@ -229,7 +236,7 @@ Z=\int \mathcal{D} \psi^{\dagger}\mathcal{D} \psi e^{-\int d\tau d^3x\left[\math
 \eeq
 If the integral over Euclidean time is compact, then the finite time extent $\beta$ acts as an inverse temperature, and we may draw an analogy with the partition function in statistical mechanics, $Z = tr\left[e^{-H\beta}\right]$. This analogy is often useful when discussing lattice formulations of the path integral. In this work we will generally consider $\mu=0$ and create non-zero particle density by introducing sources and sinks for particles and calculating correlation functions. 
 
-We discretize this theory on a square lattice consisting of $L^3 \times N_{\tau}$ points, where $L$ is the number of points in all spatial directions, and $N_{\tau}$ is the number of temporal points. We will focus on zero temperature physics, corresponding to large $N_{\tau}$\footnote{The explicit condition on $N_{\tau}$ required for extracting zero temperature observables will be discussed in \Sec{observables}}. We must also define the physical distance between points, the lattice spacings $b_s, b_{\tau}$, where $b_{\tau} = b_s^2/M$ by dimensional analysis for non-relativistic theories. The fields are now labeled by discrete points, $\psi(\vec{x},\tau) \to \psi_{\vec{n},\tau}$, and continuous integrals are replaced by discrete sums, $\int d^3x \to \sum_{\vec{n},\tau}^{L,N_{\tau}}$.
+We discretize this theory on a square lattice consisting of $L^3 \times N_{\tau}$ points, where $L$ is the number of points in all spatial directions, and $N_{\tau}$ is the number of temporal points. We will focus on zero temperature physics, corresponding to large $N_{\tau} ~$\footnote{The explicit condition on $N_{\tau}$ required for extracting zero temperature observables will be discussed in \Sec{observables}}. We must also define the physical distance between points, the lattice spacings $b_s, b_{\tau}$, where $b_{\tau} = b_s^2/M$ by dimensional analysis for non-relativistic theories. The fields are now labeled by discrete points, $\psi(\vec{x},\tau) \to \psi_{\vec{n},\tau}$, and continuous integrals are replaced by discrete sums, $\int d^3x \to \sum_{\vec{n},\tau}^{L,N_{\tau}}$.
 
 \subsubsection{Free field theory}
 To discretize a free field theory, we must discuss discretization of derivatives. The simplest operator which behaves as a single derivative in the continuum limit is a finite difference operator,
@@ -246,11 +253,11 @@ S_{\mbox{\tiny KE}} \propto \sum_j \psi_j^{\dagger} \nabla_L^2 \psi_j \ .
 \eeq
 The fields may be expanded in a plane wave basis,
 \beq
-\psi_j = \sum_{k=-L/2}^{L/2} \psi_k e^{-\frac{2\pi i}{L} j \dot k} \ ,
+\psi_j = \sum_{k=-L/2}^{L/2} \psi_k e^{-\frac{2\pi i}{L} j \cdot k} \ ,
 \eeq
 for spatial indices, $j$, leading to
 \beq
-\sum_j \psi_j^{\dagger} \nabla_L^2 \psi_j = \frac{1}{b_s^2}\sum_j \sum_{k'}\sum_k \psi_{k'}^{\dagger} \psi_k \left[ e^{\frac{2\pi i}{L}j \dot k'} e^{\frac{-2\pi i}{L} j\dot k} \right] \left[e^{\frac{-2\pi i}{L}k}+e^{\frac{2\pi i}{L} k}-2\right] \ .
+\sum_j \psi_j^{\dagger} \nabla_L^2 \psi_j = \frac{1}{b_s^2}\sum_j \sum_{k'}\sum_k \psi_{k'}^{\dagger} \psi_k \left[ e^{\frac{2\pi i}{L}j \cdot k'} e^{\frac{-2\pi i}{L} j\cdot k} \right] \left[e^{\frac{-2\pi i}{L}k}+e^{\frac{2\pi i}{L} k}-2\right] \ .
 \eeq
 After performing the sum over $j$ the first piece in brackets gives $\delta_{kk'}$, while the second is proportional to $\sin^2(k\pi/L)$, resulting in,
 \beq
@@ -288,7 +295,7 @@ where $D \equiv 1-\frac{b_s^2 \nabla_L^2}{2}$ contains the spatial Laplacian, an
 \subsubsection{Interactions}
 Now let's discuss adding interactions to the theory. We'll focus on the first term in a nuclear EFT expansion, the four-fermion interaction:
 \beq
-\mathcal{L}_{\mbox{\tiny int}} = g_0 \psi_{n,\uparrow} \psi_{n,\uparrow} \psi_{n,\downarrow} \psi_{n,\downarrow} \ ,
+\mathcal{L}_{\mbox{\tiny int}} = \sum_n g_0 \psi_{n,\uparrow} \psi_{n,\uparrow} \psi_{n,\downarrow} \psi_{n,\downarrow} \ ,
 \eeq
 where $(\uparrow,\downarrow)$ now explicitly label the particles' spins (or alternatively, flavors). Because anti-commuting fields cannot easily be accommodated on a computer, they must be integrated out analytically. The only Grassmann integral we know how to perform analytically is a Gaussian, so the action must be bilinear in the fields. One trick for doing this is called a Hubbard-Stratonovich (HS) transformation, in which auxiliary fields are introduced to mediate the interaction. The key is to use the identity,
 \beq
@@ -346,7 +353,7 @@ This integral is then evaluated stochastically. These are just a sample of the a
 Now that we have developed a general framework for lattice EFT, let's be explicit and make a few choices in order to further our understanding and make calculations simpler. The first choice I'm going to make is to use a $Z_2$ $\phi$ field, so that $\rho[\phi]$ is trivial. The next simplification I'm going to make is to allow the $\phi$ fields to live only on temporal links,
 \beq
 \label{eq:pointint}
-\calL_{\mbox{\tiny int}} = \sqrt{b_{\tau}g_0}\phi_{x,\tau}\psidag_{x,\tau}\psi_{x,\tau-1} \ .
+\calL_{\mbox{\tiny int}} = \sum_{\bfx}\sqrt{b_{\tau}g_0}\phi_{\bfx,\tau}\psidag_{\bfx,\tau}\psi_{\bfx,\tau-1} \ .
 \eeq
 Note that we are free to make this choice, so long as the proper four-fermion interaction is regained in the continuum limit. This choice renders the interaction separable, as it was in our continuum effective theory. This means we may analytically sum two-body bubble chain diagrams as we did previously in order to set the coupling $g_0$ using some physical observable (see \Fig{dimer}). 
 
@@ -364,8 +371,10 @@ X(\phi_{N_{\tau}}) & .&. & & &0 & D \\
 where $X(\phi_\tau) \equiv 1-\sqrt{g_0}\phi_\tau$. Now the $\phi$-dependence exists only on the upper diagonal, as well as the lower left due to the boundary condition. This block will be eliminated through our final choice: open boundary conditions in time for the $\psi$ fields, $X(\phi_{N_{\tau}})=0$. As mentioned previously, we are free to choose the temporal boundary conditions as we please, so long as we only consider zero temperature (and zero chemical potential) observables. 
 
 \begin{figure}
-\caption{\label{fig:dimer}Two-body scattering amplitude of \Fig{bubblesum}, where the contact interaction has been replaced in the second line by exchange of a dimer auxiliary field via a Hubbard-Stratonovich transformation.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/dimer}
+\end{center}
+\caption{\label{fig:dimer}Two-body scattering amplitude of \Fig{bubblesum}, where the contact interaction has been replaced in the second line by exchange of a dimer auxiliary field via a Hubbard-Stratonovich transformation.}
 \end{figure}
 
 With this set of choices the matrix $K$ consists purely of diagonal elements, $D$, and upper diagonal elements, $X(\phi_\tau)$. One property of such a matrix is that the determinant, which is part of the probability distribution, is simply the product of diagonal elements, $\det K = \prod_{\tau} D$. Note that $D$ is completely independent of the field $\phi$. This means that the determinant in this formulation has no impact on the probability distribution $P[\phi]$, and therefore never needs to be explicitly computed, greatly reducing the computational burden. Thus in all of our calculations, performing the path integral over $\phi$ simply amounts to summing over $\phi = \pm 1$ at each lattice site. 
@@ -379,11 +388,13 @@ where $K^{-1}(0,0) = D^{-1}$, and all entries are $V\times V \ , (V=L^3)$ matric
 
 As will be discussed further in Sec{systematic}, it is often preferable to calculate the kinetic energy operator in momentum space, while the auxiliary field in $X(\phi)$ must be generated in position space. Thus, Fast Fourier Transforms (FFTs) may be used between each operation to quickly translate between the bases. Example code for generating source vectors, kinetic operators, and interaction operators will be provided in later Sections.
 
-A cartoon of this process on the lattice is shown in \Fig{lat}. The choice of $Z_2$ auxiliary fields also simplifies the understanding of how four-fermion interactions are generated. On every time link, imagine performing the sum over $\phi = \pm 1$. Clearly, if there is only a single fermion propagator on a given link this gives zero contribution because the term is proportional to $\sum_{\phi=\pm 1} \sqrt{g_0} \phi = 0$. However, on time slices where two propagators overlap, we have instead $\sum_{\phi = \pm 1} g_0 \phi^2 = 2 g_0$. In sum, anywhere two fermions exist at the same spacetime point of a factor of $g_0$ contributes, corresponding to an interaction.
+A cartoon of this process on the lattice is shown in \Fig{lat}. The choice of $Z_2$ auxiliary fields also simplifies the understanding of how four-fermion interactions are generated. On every time link, imagine performing the sum over $\phi = \pm 1$. If there is only a single fermion propagator on a given link this gives zero contribution because the term is proportional to $\sum_{\phi=\pm 1} \sqrt{g_0} \phi = 0$. However, on time slices where two propagators overlap, we have instead $\sum_{\phi = \pm 1} g_0 \phi^2 = 2 g_0$. In sum, anywhere two fermions exist at the same spacetime point a factor of $g_0$ contributes, corresponding to an interaction.
 
 \begin{figure}
+\begin{center}
+\includegraphics[width=0.4\linewidth]{Chapter5-figures/lattice.png}
+\end{center}
 \caption{\label{fig:lat}Schematic of a lattice calculation for a two-particle correlation function. The two particles (red and blue lines) propagate through the lattice between source $\psi(0)$ and sink $\psi(\tau)$, seeing particular values of the auxiliary field, $\phi$, on each time link. If two particles occupy the same temporal link, then upon summation over all possible values of $\phi$ at each link, a non-zero contribution is generated by the interaction term because $\langle \phi^2 \rangle \neq 0$.}
-\includegraphics[width=0.3\linewidth]{Chapter5-figures/lattice.png}
 \end{figure}
 
 \subsubsection{\label{sec:tuning}Tuning the two-body interaction}
@@ -441,7 +452,7 @@ C_2(\tau) &=& \frac{1}{4\tau}\sum_{x_1 x_2 x_1' x_2' \cdots y_1y_2}\sum_{\phi_{x
 \eeq
 The first (last) piece in angle brackets represents the position space wavefunction created by the sink (source). All $\phi$ fields in \Eq{c2xspace} are uncorrelated, so we can perform the sum for each time slice independently. One such sum is given by,
 \beq
-&&\frac{1}{4}\sum_{x_1x_1'x_2x_2'}\sum_{\phi_{x_1}\phi_{x_2}} \delta_{x_1x_1'}\delta_{x_2x_2'}(`1+\sqrt{g_0}\phi_{x_1}+\sqrt{g_0}\phi_{x_2}+g_0 \phi_{x_1}\phi_{x_2}) \cr
+&&\frac{1}{4}\sum_{x_1x_1'x_2x_2'}\sum_{\phi_{x_1}\phi_{x_2}} \delta_{x_1x_1'}\delta_{x_2x_2'}(1+\sqrt{g_0}\phi_{x_1}+\sqrt{g_0}\phi_{x_2}+g_0 \phi_{x_1}\phi_{x_2}) \cr
 &=&\sum_{x_1x_2}(1+g_0\delta_{x_1x_2}) \ ,
 \eeq
 where the cross terms vanish upon performing the sum. If we make the following definitions,
@@ -565,7 +576,7 @@ Recall that we must use Monte Carlo methods to approximate the partition functio
 \beq
 C(\tau) \approx \frac{1}{\Ncfg} \sum_{i=1}^{\Ncfg} C(\phi_i,\tau) \tautoinfty Z_0 e^{-E_0\tau}\ ,
 \eeq
-where $\phi$ is generated according to the appropriate probability distribution. In the long Euclidean time limit we expect that this quantity will give us an accurate value for the ground state energy. As stated previously, if the ensemble is large enough for the central limit theorem to hold, then the error on the mean (noise) will be governed by the sample standard deviation,
+where $C(\phi_i,\tau)$ is the operator for some correlation function of interest evaluated on a single configuration $\phi_i$, and the set of all fields, $\phi$, are generated according to the appropriate probability distribution. In the long Euclidean time limit we expect that this quantity will give us an accurate value for the ground state energy. As stated previously, if the ensemble is large enough for the central limit theorem to hold, then the error on the mean (noise) will be governed by the sample standard deviation,
 \beq
 \sigma_C^2(\tau) = \frac{1}{\Ncfg}\left[ \sum_{i=1}^{\Ncfg}|C(\phi_i,\tau)|^2 - \left|\sum_{i=1}^{\Ncfg}C(\phi_i,\tau)\right|^2\right] \ .
 \eeq
@@ -631,9 +642,9 @@ which is exactly the same as we had for the attractive interaction. This implies
 
 In general, however, signal-to-noise problems for systems with repulsive interactions are exponentially worse than those for attractive interactions. This is because generically the signal-to-noise ratio falls off as,
 \beq
-\calR \sim e^{-\left(E_S - E_N/2\right)\tau} \ ,
+\calR \sim e^{-\left(E_{\mathcal{S}} - E_{\mathcal{N}}/2\right)\tau} \ ,
 \eeq
-where $E_{S(N)}$ is the ground-state energy associated with the signal (noise). Because the signal corresponds to a repulsive system while the noise corresponds to an attractive system, the energy difference in the exponential will be greater than for a signal corresponding to an attractive system. 
+where $E_{\mathcal{S}(\mathcal{N})}$ is the ground-state energy associated with the signal (noise). Because the signal corresponds to a repulsive system while the noise corresponds to an attractive system, the energy difference in the exponential will be greater than for a signal corresponding to an attractive system. 
 
 \subsubsection{\label{sec:sign}Sign Problems}
 A related but generally more insidious problem can occur in formulations having fermion determinants in the probability measure, known as a sign problem. A sign problem occurs when the determinant is complex, for example, in our case of a repulsive interaction. While we were able to eliminate the fermion determinant in one particular formulation, there are situations when having a fermion determinant in the probability measure may be beneficial, for example, when using forms of favorable reweighting, as will be discussed later on, or may be necessary, such as for non-zero chemical potential or finite temperature, when the boundary conditions in time may not be altered. For these reasons, we will now briefly discuss sign problems. 
@@ -713,8 +724,10 @@ For the lattice formulations we have thus far explored one generates configurati
 We can look to lattice QCD for a pedagogical example. In QCD, the fermion determinant encodes vacuum bubbles created by quark/anti-quark pairs. According to the tenets of confinement, bubbles with large spacetime area require a large energy to produce, and are therefore highly suppressed in the partition function. When doing importance sampling, small vacuum bubbles will dominate. On the other hand, if we now calculate an observable which introduces particle sources, a configuration involving a large vacuum bubble may become very important to the calculation. This is because the total relevant spacetime area of the given configuration, taking into account the particles created by the sources, can in fact be small (see \Fig{QCDbubble}). However, by sampling according to the vacuum probability, this configuration will be missed, skewing the calculation in an unknown manner. The farther the observable takes us from the vacuum, the worse this problem becomes, making this a particularly troublesome issue for many-body calculations.
 
 \begin{figure}
-\caption{\label{fig:QCDbubble}A schematic of an example configuration in LQCD which may lead to a statistical overlap problem. Red propagators correspond to valence quarks (quarks created by the sources/sinks in the operator), while blue corresponds to sea quarks (vacuum bubbles generated via Monte Carlo). Due to confinement, large bubbles (determined by the area enclosed by the blue propagator) are suppressed in the QCD vacuum and thus will likely be thrown out during importance sampling. In the presence of quark sources, however, these configurations are very important in the calculation of the observable (due to the small area enclosed between the red and blue propagators).}
+\begin{center}
 \includegraphics[width=0.3\linewidth]{Chapter5-figures/QCDbubble.pdf}
+\end{center}
+\caption{\label{fig:QCDbubble}A schematic of an example configuration in LQCD which may lead to a statistical overlap problem. Red propagators correspond to valence quarks (quarks created by the sources/sinks in the operator), while blue corresponds to sea quarks (vacuum bubbles generated via Monte Carlo). Due to confinement, large bubbles (determined by the area enclosed by the blue propagator) are suppressed in the QCD vacuum and thus will likely be thrown out during importance sampling. In the presence of quark sources, however, these configurations are very important in the calculation of the observable (due to the small area enclosed between the red and blue propagators).}
 \end{figure}
 
 Such problems are referred to as statistical overlap problems. Another situation where these overlap problems can often occur is when doing reweighting to evade a sign problem, as discussed in \Sec{sign}. For example, if the distribution being sampled corresponds to a theory with an attractive interaction, but the desired observable has a repulsive interaction, the Monte Carlo sampling will be unlikely to pick up the most relevant configurations, affecting the numerator of \Eq{reweight}.
@@ -722,19 +735,21 @@ Such problems are referred to as statistical overlap problems. Another situation
 We can understand the problem further by studying probability distributions of observables. While the distribution of the sampled field, $\phi$ in our case, may be peaked around the mean value of $\phi$, the distribution of the observable as calculated over the sample may not be peaked near the true mean of the observable. Such a distribution necessarily has a long tail. Plotting histograms of the values of the observable as calculated over the sample, $\{ C(\phi_1), C(\phi_2), \cdots C(\phi_{\Ncfg}) \}$, can allow us to gain an idea of the shape of the distribution for that observable. An example of a distribution with a statistical overlap problem is plotted in \Fig{overlap}. In this case, the peak of the distribution is far from the true mean. Values in the tail of the distribution have small weight, and are likely to be thrown out during importance sampling, skewing the sample mean without a corresponding increase in the error bar. The error bar is instead largely set by the width of the distribution near the peak. One way to determine whether there is an overlap problem is to recalculate the observable on a different sample size; if the mean value fluctuates significantly outside the original error bar this indicates an overlap problem.
 
 \begin{figure}
-\caption{\label{fig:overlap}Schematic drawing of a long-tailed probability distribution (blue) which leads to an overlap problem. Monte Carlo sampling leads to a sample distribution which is centered around the peak of the underlying distribution (red), far from the mean. The ideal probability distribution one would like to sample is narrow and centered around the mean (green).}
+\begin{center}
 \includegraphics[width=0.5\linewidth]{Chapter5-figures/overlap.pdf}
+\end{center}
+\caption{\label{fig:overlap}Schematic drawing of a long-tailed probability distribution (blue) which leads to an overlap problem. Monte Carlo sampling leads to a sample distribution which is centered around the peak of the underlying distribution (red), far from the mean. The ideal probability distribution one would like to sample is narrow and centered around the mean (green).}
 \end{figure}
 
 The central limit theorem tells us that regardless of the initial distribution we pull from, the distribution of the mean should approach a Gaussian for a large enough sample size, so in principle we should be able to combat an overlap problem by brute force. However, what constitutes a ``large enough" sample size is dictated by the shape of the original distribution. The Berry-Esseen theorem \cite{BerryEsseen1,BerryEsseen2} can be used to determine that the number of configurations necessary to assume the central limit theorem applies is governed by
 \beq
-\sqrt{\Ncfg} \sim \frac{\langle x^3\rangle}{\langle x^2\rangle^{3/2}} \ ,
+\sqrt{\Ncfg} \sim \frac{\langle \mathcal{X}^3\rangle}{\langle \mathcal{X}^2\rangle^{3/2}} \ ,
 \eeq
-where $\langle x^n \rangle$ is the $n$th moment of the distribution of the observable. Thus, a large skewness, or long tail, increases the number of configurations necessary before the central limit theorem applies, and therefore, to trust an error bar determined by the standard deviation of the distribution of the mean.
+where $\langle \mathcal{X}^n \rangle$ is the $n$th moment of the distribution of an observable, $\mathcal{X}$. Thus, a large skewness, or long tail, increases the number of configurations necessary before the central limit theorem applies, and therefore, to trust an error bar determined by the standard deviation of the distribution of the mean.
 
 One could imagine repeating an argument similar to that made for estimating the variance of our correlation functions in order to estimate the third moment. For example, if our observable is the two-particle correlation function, $C_2(\tau)$, then the third moment will be
 \beq
-\langle \left[K_{ab}(\phi_i,\tau)\right]^6 \rangle \ ,
+\langle \mathcal{X}^3 \rangle \sim \langle \left[K_{ab}(\phi_i,\tau)\right]^6 \rangle \ ,
 \eeq
 corresponding to a correlation function containing six particles of different flavors. Again, increasing the number of flavors generally increases the binding energy per particle of the system, leading to a third moment which is exponentially large compared to the appropriately scaled second moment. This implies that an exponentially large number of configurations will be necessary before the central limit theorem applies to the distribution of the mean of correlation functions calculated using this formulation. 
 
@@ -772,10 +787,10 @@ If it is $\ln C$ that is nearly Gaussian rather than $C$, then it may be better 
 \eeq
 where $\kappa_n$ is the $n$th cumulant, or connected moment. The cumulants may be calculated using the following recursion relation:
 \beq
-\kappa_n(x) = \langle x^n \rangle -\sum_{m=1}^{n-1}\left(\begin{array}{c}
+\kappa_n(\mathcal{X}) = \langle \mathcal{X}^n \rangle -\sum_{m=1}^{n-1}\left(\begin{array}{c}
 n-1 \\
 m-1 
-\end{array} \right)\kappa_m(x) \langle x^{n-m}\rangle \ .
+\end{array} \right)\kappa_m(\mathcal{X}) \langle \mathcal{X}^{n-m}\rangle \ .
 \eeq
 Note that the expansion in \Eq{cumulantexp} is an exact equality for an observable obeying any distribution. We may now expand the correlation function as
 \beq
@@ -784,8 +799,10 @@ Note that the expansion in \Eq{cumulantexp} is an exact equality for an observab
 Again, this expansion is true for a correlation function obeying any distribution. However, if the distribution of $\ln C$ is exactly log-normal, then $\kappa_{n\geq 3}(\ln C) = 0$. If the distribution is approximately log-normal, then the third and higher cumulants are small corrections, further suppressed in the cumulant expansion by $1/n!$. This suggests that we may cut off the expansion after including a finite number of cumulants without significantly affecting the result (see \Fig{cumulant}). We may also include the next higher order cumulant in order to estimate any systematic error associated with our cutoff.
 
 \begin{figure}
-\caption{\label{fig:cumulant} Results for the energy of 50 two-component fermions at unitarity using the cumulant expansion (\Eq{cumulantexp}) cut off at $\calO(N_k)$. Figure from \cite{EKLN4}.}
+\begin{center}
 \includegraphics[width=0.5\linewidth]{Chapter5-figures/cumulant}
+\end{center}
+\caption{\label{fig:cumulant} Results for the energy of 50 two-component fermions at unitarity using the cumulant expansion (\Eq{cumulantexp}) cut off at $\calO(N_k)$. Figure from \cite{EKLN4}.}
 \end{figure}
 
 The benefit of using the cumulant expansion to estimate the mean rather than using the standard method is that for a finite sample size, high-order cumulants of $\ln C$ are poorly measured, which is the culprit behind the overlap problem. However, for approximately log-normal distributions these high-order cumulants should be small in the infinite statistics limit. Thus, by not including them in the expansion we do a better job at estimating the true mean on a finite sample size. In other words, by sampling $\ln C$ rather than $C$, we have shifted the overlap problem into high, irrelevant moments which we may neglect.
@@ -813,7 +830,7 @@ C_{N_{\uparrow},N_{\downarrow}}(\tau) = \langle \det S^{\downarrow}(\tau) \det S
 \eeq
 where
 \beq
-S_{ij}^{\sigma} (\tau) \equiv \langle \alpha_i^{\sigma} | K^{-1}(\tau,0) | \alpha_j^{\sigma} \rangle \ ,
+S_{ij}^{\sigma} (\phi,\tau) \equiv \langle \alpha_i^{\sigma} | K^{-1}(\phi,\tau) | \alpha_j^{\sigma} \rangle \ ,
 \eeq
 and $\langle \alpha_j^{\sigma}|$ corresponds to single particle state $i$ with spin $\sigma$. As an example, we may use a plane wave basis for the single particle states,
 \beq
@@ -833,8 +850,8 @@ Thus the overlap of single-particle states with an interacting $2N$-body state i
 
 In order to do a better job we can incorporate two-body correlations into the sinks as follows: first, we construct a two particle propagator,
 \beq
-S_{ij}^{\uparrow}{\downarrow}(\tau) &=& \langle \Psi_2|K^{-1}(\tau,0) \otimes K^{-1}(\tau,0)\left( | \alpha_i^{\uparrow}\rangle \otimes | \alpha_j^{\downarrow} \rangle \right)\cr
-&=& \sum_{\vec{p}} \Psi(\vec{p}) \langle \vec{p}| K^{-1}(\tau,0) | \alpha_i^{\uparrow} \rangle \langle -\vec{p}| K^{-1}(\tau,0) | \alpha_j^{\downarrow} \rangle \ ,
+S_{ij}^{\uparrow}{\downarrow}(\phi,\tau) &=& \langle \Psi_2|K^{-1}(\phi,\tau) \otimes K^{-1}(\phi,\tau)\left( | \alpha_i^{\uparrow}\rangle \otimes | \alpha_j^{\downarrow} \rangle \right)\cr
+&=& \sum_{\vec{p}} \Psi(\vec{p}) \langle \vec{p}| K^{-1}(\phi,\tau) | \alpha_i^{\uparrow} \rangle \langle -\vec{p}| K^{-1}(\phi,\tau) | \alpha_j^{\downarrow} \rangle \ ,
 \eeq
 where $\Psi_2(\vec{p})$ is some two-body wavefunction (this process could equally well be performed in position space). As an example, to incorporate BCS pairing, we may use a wavefunction of the form:
 \beq
@@ -844,8 +861,10 @@ where $\Psi_2(\vec{p})$ is some two-body wavefunction (this process could equall
 where $b$ is some parameter which may be tuned to maximize the overlap of the wavefunction. We may also use the wavefunction derived in \Eq{varpsi} for a lattice version of such a wavefunction. An example code fragment for implementing such wavefunctions is given in \Fig{wfcode}.
 
 \begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{Chapter5-figures/twobody}
+\end{center}
 \caption{\label{fig:wfcode}Portion of c++ code for implementing two types of two-body source vector: \Eq{varpsi} (GND) and \Eq{pairing} (PAIR2). Note that these vectors are computed in momentum space. The first operator applied to a source is the kinetic operator, $D^{-1}$, which is also computed in momentum space.}
-\includegraphics[width=0.9\linewidth]{Chapter5-figures/twobody}
 \end{figure}
 
 To ensure Pauli exclusion, it is sufficient to antisymmetrize only the sources, $|\alpha_i \rangle$, leading to the following many-body correlation function,
@@ -862,6 +881,7 @@ The projection onto the cubic irreps is the lattice equivalent of a partial wave
 
 \begin{table}[h!]
 \label{tab:cubicirreps}
+\begin{center}
 \begin{tabular}{cc}
  j \hspace{1mm} & cubic irreps \\
  \hline
@@ -871,6 +891,7 @@ The projection onto the cubic irreps is the lattice equivalent of a partial wave
  3 \hspace{1mm} & $A_2 + T_1 + T_2$ \\
  4 \hspace{1mm} & $A_1 + E + T_1 + T_2$ \\
  \end{tabular}
+ \end{center}
  \caption{Decomposition of the cubic group onto total angular momentum, $j$.}
  \end{table}
  
@@ -1022,7 +1043,7 @@ Here we have only used a single recursion relation, which is useful for finding 
 
 \section{\label{sec:systematic}Systematic errors and improvement}
 \subsection{Improving the kinetic energy operator}
-The first systematic effect we will examine comes from the discretization of the kinetic operator, first discussed in \Sec{LEFT}. In this section I will show the lattice spacing dependence explicitly so that we may see how discretization errors scale. The kinetic term depends on the definition of the Laplacian operator, which we originally defined to be, \note{check units/lattice spacings}
+The first systematic effect we will examine comes from the discretization of the kinetic operator, first discussed in \Sec{LEFT}. In this section I will show the lattice spacing dependence explicitly so that we may see how discretization errors scale. The kinetic term depends on the definition of the Laplacian operator, which we originally defined to be, 
 \beq
 \nabla_{L}^2 f_j = \sum_{k=1,2,3} \frac{1}{b_s^2} \left[ f_{j+\hat{k}}+f_{j-\hat{k}}-2f_j \right] \ ,
 \eeq
@@ -1078,8 +1099,10 @@ K^{-1}(\tau) &=& D^{-1}X(\tau)D^{-1}X(\tau-1)\cdots D^{-1} \cr
 suggests that the kinetic ($D^{-1}$) and interaction ($X$) operators may each be applied separately in whatever basis is most convenient. So, we may choose to start with a source in momentum space (which is often preferable), then apply an exact kinetic operator, $D^{-1}$, also in momentum space, perform a FFT to position space, hit the resulting vector with the $X$ operator, which is most easily specified in position space, FFT again back to momentum space to perform a kinetic operation, and so on until finally the sink is applied. Example code for calculating various forms of inverse kinetic operator in momentum space is shown in \Fig{dispersion}.
 
 \begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{Chapter5-figures/dispersion}
+\end{center}
 \caption{\label{fig:dispersion}Example c++ code fragment for computing various lattice Laplacian operators: \Eq{Deltasin} (STANDARD), \Eq{perfect} (PERFECT), as well as a simple quadratic in momentum (QUADRATIC). Note that these are computed in momentum space, and they may be used to calculate the kinetic operator $D^{-1}$, then directly applied to the momentum space vectors computed in \Fig{wfcode}.}
-\includegraphics[width=0.9\linewidth]{Chapter5-figures/dispersion}
 \end{figure}
 
 The benefit to using the FFT repeatedly rather than simply converting the kinetic operator into position space is that modern FFT libraries are highly optimized and cheap to use. For comparison, if we used the ``perfect" kinetic operator in position space it would be a dense $V\times V$ matrix. The operation of applying such an object to a $V$-dimensional vector,
@@ -1103,13 +1126,13 @@ p\cot\delta = 0 \ ,
 \eeq
 implying that the inverse scattering length, effective range, and all other shape parameters vanish. In \Sec{tuning}, we discussed how to tune the two-particle coupling in order to reproduce infinite scattering length. The lattice, however, naturally induces an effective range for the interactions, which have been generated via auxiliary fields extending across a lattice link, of size $b_s$. In order to improve the interaction and eliminate the unwanted effective range contribution stemming from discretization, we may add a higher-order interaction operator,
 \beq
-\sqrt{g_2} \phi \psidag \nabla_L^2 \psi \ ,
+\sum_{\bfx}\sqrt{g_2} \phi \psidag_{\bfx} \nabla_L^2 \psi_{\bfx} \ ,
 \eeq
 recalculate the scattering amplitude, $A$, as a function of $g_0, g_2$, and tune $g_2$ to eliminate the $r_0$ term in the effective range expansion. In principle, one may further generalize the interaction operator,
 \beq
 \calL_{\mbox{\tiny int}} = \sum_n \sqrt{g_{2n}}  \phi \psidag \nabla_L^{2n} \psi \ ,
 \eeq
-and use the $g_{2n}$ to tune away successive terms in the effective range expansion. In practice this may be difficult because the interaction is generally no longer separable, so that loops can't be summed analytically. An easier method may be to use the transfer matrix, as we did in \Sec{LEFT}, to determine the two particle energy spectrum in a box, then tune the couplings in order to reproduce the desired energies. The target energies may be determined for systems obeying any known physical scattering phase shift using an approach known as the L\"uscher method, which we will now briefly review.
+where we will now suppress spacetime indices, and use the $g_{2n}$ to tune away successive terms in the effective range expansion. In practice this may be difficult because the interaction is generally no longer separable, so that loops can't be summed analytically. An easier method may be to use the transfer matrix, as we did in \Sec{LEFT}, to determine the two particle energy spectrum in a box, then tune the couplings in order to reproduce the desired energies. The target energies may be determined for systems obeying any known physical scattering phase shift using an approach known as the L\"uscher method, which we will now briefly review.
 
 \subsubsection{\label{sec:Luscher}L\"uscher's method}
 
@@ -1172,8 +1195,10 @@ is related to the Riemann zeta function. The cutoff on the sum, $\Lambda$, may b
 Many extensions of L\"uscher's method exist for more complicated systems, such as multi-channel processes \cite{Briceno:2012yi,Hansen:2012tf,Li:2014wga,Briceno:2014oea,Briceno:2015tza,Briceno:2015csa,Briceno:2015axa,Briceno:2014uqa}, higher partial waves \cite{Luu:2011ep,Konig:2011nz,Koenig:2011ti}, moving frames \cite{Rummukainen:1995vs,Kim:2005gf}, moving bound states \cite{Bour:2011ef,Davoudi:2011md}, asymmetric boxes \cite{Li:2003jn,Feng:2004ua}, and three-body systems \cite{Hansen:2016fzj,Hansen:2015zga,Hansen:2014eka,Briceno:2012rv}, as well as perturbative expansions for many-boson systems \cite{Beane:2007qr,Detmold:2008gh,Smigielski:2008pa}. Formulations for general systems involving two nucleons may be found in \cite{Briceno:2013lba,Briceno:2013bda}. These formulations have been successfully applied in Lattice QCD for the determination of scattering phase shifts of nucleon-nucleon \cite{Beane:2006mx,Beane:2011iw,Beane:2012vq,Detmold:2015daa,Beane:2015yha,Chang:2015qxa,Orginos:2015aya,Yamazaki:2012hi,Yamazaki:2015asa,Berkowitz:2015eaa,Murano:2013xxa}, meson-meson \cite{Wilson:2014cna,Wilson:2015dqa,Dudek:2012gj,Dudek:2012xn,Dudek:2014qha,Beane:2011sc,Aoki:2007rd,Aoki:2011yj,Pelissier:2012pi,Feng:2010es,Torres:2014vna,Bolton:2015psa,Briceno:2015dca,Lang:2012sv,Prelovsek:2013ela,Lang:2014yfa,Lang:2015hza,Lang:2011mn,Briceno:2016kkp}, meson-baryon \cite{Verduci:2014csa,Lang:2012db,Torok:2009dg,Detmold:2015qwf}, and hyperon-nucleon \cite{Beane:2012ey,Beane:2009py,Beane:2006gf} systems.
 
 \begin{figure}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Chapter5-figures/luscher}
+\end{center}
 \caption{\label{fig:luscher}$S(\eta)$ (solid red) and $\pi L p \cot \delta$ (dashed) as a function of $\eta \equiv \left(\frac{p L}{2\pi}\right)^2$. The $\pi L p \cot \delta$ correspond to $r_0/a=-0.1$, for the following volumes: $L/|a|=2$ (blue), $L/|a|=4$ (pink), $L/|a|=8$ (yellow), $L/|a|=10$ (green).  The energy eigenstates for the corresponding volumes are given by the intercepts of $S(\eta)$ with the dashed lines. Figure from \cite{Drut:2012md}.}
-\includegraphics[width=0.5\linewidth]{Chapter5-figures/luscher.pdf}
 \end{figure}
 
 \subsubsection{Applying L\"uscher's method to tune the two-body couplings}
@@ -1182,7 +1207,7 @@ The prescription for a lattice QCD calculation of nucleon-nucleon phase shifts i
 Our prescription for tuning the coefficients will be to construct the two-body transfer matrix with some set of operators,
 \beq
 \label{eq:tuningcoef}
-C(\vec{p}) = \sum_n^{\Lambda_n} g_{2n}\calO_{2n}(\vec{p}) \ ,
+\mathcal{G}(\vec{p}) = \sum_n^{\Lambda_n} g_{2n}\calO_{2n}(\vec{p}) \ ,
 \eeq
 which satisfy the low energy expansion $\calO_{2n}(\vec{p}) = \vec{p}^{2n} \left[ 1 + \calO(\vec{p}^2) \right]$ at low momenta, and should be chosen to depend only on the relative momentum of the two particle system in order to ensure Galilean invariance. This is important so that once the interaction is tuned boosted pairs of particles will see the same interaction. A convenient choice for the operators is given by,
 \beq
@@ -1192,15 +1217,19 @@ which satisfy the low energy expansion $\calO_{2n}(\vec{p}) = \vec{p}^{2n} \left
 where $\hat{\vec{p}}$ is taken to be a periodic function of $\vec{p}$ and satisfies the relation $\hat{\vec{p}}^2 = \vec{p}^2 \theta(\Lambda-|\vec{p}|) + \Lambda^2  \theta(|\vec{p}| - \Lambda)$ for $\vec{p}$ in the first Brillouin zone. Sample code for calculating this interaction operator is shown in \Fig{interaction}.
 
 \begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{Chapter5-figures/interaction}
+\end{center}
 \caption{\label{fig:interaction}C++ code fragment for calculating the interaction given in \Eq{tuningcoef}, using the operators \Eq{Ofunc}, given some set of input coefficients interaction\_arg.couplings$[\Lambda_n]$. Note that this operator is calculated in momentum space. It may be applied directly to the momentum space vector resulting from the first operation of the kinetic operator, $D^{-1}$. A FFT must then be performed before applying the random auxiliary field, $\phi_x$. A final FFT must then be performed to return to momentum space before applying the next operation of $D^{-1}$ in order to propagate the system forward in time.}
-\includegraphics[width=0.9\linewidth]{Chapter5-figures/interaction}
 \end{figure}
 
 The transfer matrix may then be diagonalized numerically to determine the energy eigenvalues. The $g_{2n}$ should then be tuned until the energies match the first $\Lambda_n$ eigenvalues given by the L\"uscher method. This process serves a dual purpose: tuning multiple couplings helps reduce lattice spacing effects like the effective range, as we discussed previously, and also takes into account finite volume effects by correctly translating the exact infinite volume phase shifts into a finite volume. The process of tuning for the case of unitarity is illustrated in \Fig{tuning}. Here, $N_{\calO}$ coefficients have been tuned to correctly reproduce the first $N_{\calO}$ L\"uscher eigenvalues. The entire two-body spectrum is then calculated using these coefficients, and the resulting energies are plugged back into \Eq{pcotdeltaeig} to determine the effective phase shift seen by pairs of particles with different momenta. To be truly at unitarity, we should have $p\cot\delta = 0$ for all momenta. Clearly, tuning more coefficients brings us closer to unitarity for larger and larger momenta. This is particularly important for calculations involving many-body systems, where the average momentum grows with the density, $\langle p \rangle \sim n^{1/3}$.
 
 \begin{figure}
-\caption{\label{fig:tuning}Effective scattering phase shifts $p \cot \delta$ vs. $\eta$ produced by a set of contact interactions of the form in \Eq{tuningcoef}, with $N_{\calO}$ coefficients tuned to unitarity. Figure from \cite{EKLN1}.}
+\begin{center}
 \includegraphics[width=0.5\linewidth]{Chapter5-figures/tuning.png}
+\end{center}
+\caption{\label{fig:tuning}Effective scattering phase shifts $p \cot \delta$ vs. $\eta$ produced by a set of contact interactions of the form in \Eq{tuningcoef}, with $N_{\calO}$ coefficients tuned to unitarity. Figure from \cite{EKLN1}.}
 \end{figure}
 
 A quantitative prediction can be made for the error remaining in higher, untuned two-body energy levels \cite{EKLN1}. Assuming $N_{\calO}$ terms in the effective range expansion have been tuned to zero,
@@ -1272,8 +1301,10 @@ where $|x-y|$ must be included to ensure that matrix elements of the operator ar
 which implies a very strong wavefunction renormalization.
 
 \begin{figure}
-\caption{\label{fig:phiprop}Propagator for the bosonic field $\phi$, dressed by fermionic loops.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/dimer2}
+\end{center}
+\caption{\label{fig:phiprop}Propagator for the bosonic field $\phi$, dressed by fermionic loops.}
 \end{figure}
 
 In general it can be very difficult to calculate anomalous dimensions directly in a non-perturbative fashion. However, for non-relativistic conformal field theories (CFT), there exists an operator-state correspondence (similar to an ADS/CFT correspondence), which relates the scaling dimension of an operator in the CFT (e.g. for unitary fermions) to the energy of the corresponding state in a harmonic potential \cite{NishidaSonConformal}. For example, we have already determined the dimension of the field $\psi$ to be 3/2, and the energy of a single fermion in a harmonic potential with oscillator frequency $\omega$ is $3/2 \omega$. The energy of two unitary fermions in a harmonic potential is $2\omega$, corresponding to the dimension of the $\phi$ field, $[\phi]=2$. 
@@ -1316,12 +1347,12 @@ We also have the freedom to use the anisotropy parameter $M$ to tune the tempora
 The first step away from unitarity and toward real nuclear physics that we can easily take is to introduce a four-component nucleon field, $N$, containing two flavors of spin up and spin down fermions. The nucleons have two allowed $s$-wave scattering channels, $^1S_0$ and $^3S_1$, which should be tuned independently (breaking the approximate $SU(4)$ symmetry between the nucleons) to give the physical nucleon-nucleon scattering lengths. One possible way to achieve this is to introduce two four-fermion interactions corresponding to,
 \beq
 \label{eq:STint}
-\calL_{\mbox{\tiny int}} = -\frac{1}{2} C_S \left(N^{\dagger}N\right)^2 - \frac{1}{2} C_T \left(N^{\dagger}\vec{\sigma}N\right)^2 \ ,
+\calL_{\mbox{\tiny int}} = -\frac{1}{2} g_S \left(N^{\dagger}N\right)^2 - \frac{1}{2} g_T \left(N^{\dagger}\vec{\sigma}N\right)^2 \ ,
 \eeq
-where $\sigma_i$ is a Pauli matrix acting on the spin indices, and $C_S,C_T$ are couplings for the spin singlet and spin triplet channel, respectively. The lattice version of this interaction requires the introduction of two independent auxiliary fields, $\phi_{S},\phi_{T}$. One possibility is,
+where $\sigma_i$ is a Pauli matrix acting on the spin indices, and $g_S,g_T$ are couplings for the spin singlet and spin triplet channel, respectively. The lattice version of this interaction requires the introduction of two independent auxiliary fields, $\phi_{S},\phi_{T}$. One possibility is,
 \beq
 \label{eq:noSU4}
-\calL_{\mbox{\tiny int}}^{(L)} = \sqrt{C_S} \phi_S N^{\dagger}N+\sqrt{C_T} \phi_T \vec{\sigma} \cdot N^{\dagger} \vec{\sigma} N \ .
+\calL_{\mbox{\tiny int}}^{(L)} = \sqrt{g_S} \phi_S N^{\dagger}N+\sqrt{g_T} \phi_T \vec{\sigma} \cdot N^{\dagger} \vec{\sigma} N \ .
 \eeq
 
 There are, in fact, many ways to implement the same interactions, and the different implementations will affect the signal-to-noise ratios of observables. For example, one could imagine having one of the $\phi$ fields couple to both channels equally (the $SU(4)$ limit), tuned to give the scattering length of the more attractive channel, $^3S_1$, then adding a second auxiliary field coupling only to the $^1S_0$ channel and tuning this coupling to be repulsive, making this channel more weakly attractive as desired. As we learned in \Sec{SNR}, repulsive interactions cause severe sign and noise problems, so this would clearly be a poor choice of implementation.
@@ -1551,9 +1582,11 @@ D_0(p_0,\vec{p}) = \frac{1}{1-g_0 \left. I_0 \right|_{E=p_0-p^2/M}} = \frac{1/a-
 where I've used the results from \Sec{couplings} to rewrite the coupling in terms of the scattering length, $a$, and the cutoff, $\Lambda$. We see that the dimer propagator has a pole at $p_0=\frac{p^2}{M}-\frac{1}{Ma^2}$, corresponding to a (virtual) bound state for (negative) positive scattering length with energy $E_B=\frac{1}{Ma^2}$. 
 
 \begin{figure}
-\caption{\label{fig:dimerprop}Dressed propagator for the bosonic dimer field, $\phi$.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/dresseddimer}
-    \end{figure}
+\end{center}
+\caption{\label{fig:dimerprop}Dressed propagator for the bosonic dimer field, $\phi$.}
+\end{figure}
 
 
 Using this dimer field, we can write the full three-body scattering amplitude, $A_3$, as an integral equation, shown in \Fig{3bodyint}. To simplify the expression, we can set the $\psi$ fields to be on-shell, so that all off-shell properties are absorbed into the dimer propagator. The amplitude can then be written,
@@ -1573,9 +1606,11 @@ For large scattering length (strong interaction) we have,
 \eeq
 
 \begin{figure}
-\caption{\label{fig:3bodyint}Full three-particle scattering amplitude written in terms of a two-particle amplitude for a fermion scattering with a dimer field. Here we have only included two-body interactions, with no explicit three-body contact interaction.}
+\begin{center}
 \includegraphics[width=\linewidth]{Chapter5-figures/3body}
-    \end{figure}
+\end{center}
+\caption{\label{fig:3bodyint}Full three-particle scattering amplitude written in terms of a two-particle amplitude for a fermion scattering with a dimer field. Here we have only included two-body interactions, with no explicit three-body contact interaction.}
+\end{figure}
 
 This integral contains divergences, which may be renormalized by adding an explicit three-body coupling, $H$. To absorb the divergences, the coupling must have the following dependence on the momentum cutoff, $\Lambda$ \cite{Bedaque:1998km,Bedaque:1998kg,Beane:2000wh}:
 \beq
@@ -1586,8 +1621,10 @@ where $s_0 \sim 1.006$ is a constant, and $\Lambda_{*}$ is some reference scale 
 There are two remarkable things to note here: the first is that this result for the scattering amplitude is only a leading order result, yet we had to introduce a three-body coupling in order to renormalize the theory. This illustrates another case where na\"ive dimensional analysis does not work, because the three-body coupling contributes at the same order as the two-body coupling. The second is the running of the coupling $H(\Lambda)$, plotted on a logarithmic scale in \Fig{HLambda}. We see that the coupling, and therefore also observables depending on the coupling, displays a log-periodic discrete scaling symmetry, related to the so-called Efimov effect. This property arises for systems obeying a potential at the threshold of singularity, $\sim 1/r^2$, as can be shown to occur for our three-body system using hyperspherical coordinates \cite{V1970563,Efimov:1971zz}.
 
 \begin{figure}
-\caption{\label{fig:HLambda}Running of the three-body contact interaction $H(\Lambda)$ at unitarity vs. the momentum cutoff, $\Lambda$, showing log-periodicity.}
+\begin{center}
 \includegraphics[width=0.5\linewidth]{Chapter5-figures/HLambda.pdf}
+\end{center}
+\caption{\label{fig:HLambda}Running of the three-body contact interaction $H(\Lambda)$ at unitarity vs. the momentum cutoff, $\Lambda$, showing log-periodicity.}
 \end{figure}
 
 Because the three-body interaction has been demonstrated to be relevant at leading order, we should in general include it non-perturbatively to our lattice theory by adding an interaction term to the Lagrangian such as,
@@ -1622,16 +1659,7 @@ Despite these limitations there have been enormous successes for lattice EFT for
 \section{Reading assignments and Exercises}
 
 \begin{prob}
-Write a simple lattice code to evaluate a two-particle correlation function as a function of Euclidean time using a $Z_2$ auxiliary field. Simple sources for two-particle states may be delta functions in position or momentum space. Use the long time behavior of the effective mass function, $\ln \frac{C_2(\tau)}{C_2(\tau+1)} \tautoinfty E_0$ (see \Sec{observables}), to determine the ground state energy for your choice of coupling, $g$. Compare this with what you expect from \Eq{eigeqlambda}, using the relation $\lambda = e^{-E_0}$, as the number of lattice points is increased.
-\end{prob}
-
-
-\begin{prob}
 Much of these lecture notes follow this review: arXiv:1208.6556. There you will also find more information about algorithms. The following is an excellent pedagogical introduction to EFT's by David B. Kaplan: arXiv:nucl-th/0510023.
-\end{prob}
-
-\begin{prob}
-Construct sources for three fermions in an $l=0$, $l=1$ state and find the lowest energies corresponding to each state at unitarity. Which $l$ corresponds to the true ground state of this system?
 \end{prob}
 
 \begin{prob}
@@ -1644,24 +1672,50 @@ for $0\leq g \leq 1$ and $\phi \in [-1,1]$. The true mean of the correlator shou
 \begin{prob}
 Reading:
 D. Lee: arXiv:0804.3501 \cite{Lee:2008fa}
-G.P. Lepage: Analysis of algorithms for lattice field theory \cite{Lepage:1989hd}
+G.P. Lepage: Analysis of algorithms for lattice field theory \cite{Lepage:1989hd}.
 \end{prob}
 \begin{prob}
 Add a term
 \beq
 c \psidag_{\tau} \nabla_{L}^2 \psi_{\tau-1}
 \eeq
-to the simple interaction, \Eq{pointint}, and derive an analytic expression for tuning the couplings, $g_0,c$ in order to eliminate the effective range contribution. You may use either the scattering amplitude or the transfer matrix method.
+to the simple interaction, \Eq{pointint}, and derive an analytic expression for tuning the couplings, $g_0$ and $c$ in order to eliminate the effective range contribution. You may use either the scattering amplitude or the transfer matrix method.
 \end{prob}
 \begin{prob}
 Write numerical code (Mathematica will suffice) to solve the transfer matrix for two particles for a chosen set of coefficients, $g_{2n}$ (\Eq{tuningcoef}), using $L=32$, $M=5$, and tune your coefficients to match the first few expected L\"uscher eigenvalues at unitarity. Compare your results with those in Table II of Ref.~\cite{EKLN1}.
 \end{prob}
+
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\section{Compilation and running the code}
+This code requires the use of the FFTW library, which you may download and install from fftw.org. The script ``create\_lib.sh" should be run first from the head directory. Once this script is successful, you may go into the production directory, modify the script ``create\_binary.sh" to reflect your path to the FFTW library, and compile by running this script. The executable created is called ``a.out", which should be run without specifying any additional parameters in the command line. Input parameters are specified in the files included in the ``arg" folder. The parameters for each file are described in the header ``arg.h". The codes can be downloaded from the link \url{https://github.com/ManyBodyPhysics/LectureNotesPhysics/blob/master/doc/src/Chapter5-programs/}.
+
+Output is created in the folder ``results". The file gives a list of the values (real part listed first, imaginary second) of the two-particle correlation function calculated at different values of Euclidean time, on a set of auxiliary field configurations. The organization of the output is as follows: 
+\beq
+\begin{array}{ccccccc}
+\mathrm{Re}\left[C(\phi_1,\tau_1)\right] & \mathrm{Im}\left[C(\phi_1,\tau_1)\right] & \mathrm{Re}\left[C(\phi_1,\tau_2)\right] & \mathrm{Im}\left[C(\phi_1,\tau_2)\right] & \cdots & \mathrm{Re}\left[C(\phi_1,\tau_{N_{\tau}})\right] & \mathrm{Im}\left[C(\phi_1,\tau_{N_{\tau}})\right] \\
+\mathrm{Re}\left[C(\phi_2,\tau_1)\right] & \mathrm{Im}\left[C(\phi_2,\tau_1)\right] & \mathrm{Re}\left[C(\phi_2,\tau_2)\right] & \mathrm{Im}\left[C(\phi_2,\tau_2)\right] & \cdots & \mathrm{Re}\left[C(\phi_2,\tau_{N_{\tau}})\right] & \mathrm{Im}\left[C(\phi_2,\tau_{N_{\tau}})\right] \\
+&&& \vdots &&& \\
+\mathrm{Re}\left[C(\phi_{\Ncfg},\tau_1)\right] & \mathrm{Im}\left[C(\phi_{\Ncfg},\tau_1)\right] & \mathrm{Re}\left[C(\phi_{\Ncfg},\tau_2)\right] & \mathrm{Im}\left[C(\phi_{\Ncfg},\tau_2)\right] & \cdots & \mathrm{Re}\left[C(\phi_{\Ncfg},\tau_{N_{\tau}})\right] & \mathrm{Im}\left[C(\phi_{\Ncfg},\tau_{N_{\tau}})\right] \\
+\end{array} \nonumber
+\eeq
+where $N_{\tau}$ and $\Ncfg$ are the total number of time steps, specified in ``do.arg", and total number of configurations, specified in ``evo.arg", respectively. To calculate the correlation function at a given time, $\tau$, average over all values: $C(\tau) = \sum_i \left(\mathrm{Re}\left[C(\phi_i,\tau)\right] + i \ \mathrm{Im}\left[C(\phi_i,\tau)\right]\right)$.
+
+\subsection{Exercises}
 \begin{prob}
- Add a harmonic potential to your code by modifying the interaction: $X(\tau) \to e^{-U/2}X(\tau)e^{-U/2}$, with the matrix $U$ given by $U_{x,x'} = 1/2 \kappa x^2 \delta_{x,x'}$. Find the energies of two unitary fermions in a harmonic trap, exploring and removing finite volume and discretization effects by varying the parameters, $L,L_0=\left(\kappa M\right)^{-1/4},\omega=\sqrt{\kappa/M}$, and performing extrapolations in these quantities if necessary. Compare your result to the expected value of 2$\omega$. 
+Set the first value in the file ``interaction.arg" to a coupling of your choice, and the remaining couplings to $0$. Use the long time behavior of the effective mass function, $\ln \frac{C(\tau)}{C(\tau+1)} \tautoinfty E_0$ (see \Sec{observables}), to determine the ground state energy for your choice of coupling, $g$. Compare this with what you expect from \Eq{eigeqlambda}, using the relation $\lambda = e^{-E_0}$, as the number of lattice points is increased. You may test the improved interaction, \Sec{tuning}, using coefficients calculated from your code developed in Prob.~4 by setting multiple couplings in the ``interaction.arg" file. Be careful to set the dispersion relation in ``kinetic.arg" to match the one used in setting up your transfer matrix for the tuning.
+\end{prob}
+
+\begin{prob}
+ Add a harmonic potential by setting the parameters in potential.arg. The three numerical values correspond to the spring constant, $\kappa$, for the $x,y,z$-directions. Set the interaction coefficients to correspond to unitarity, then find the energies of two unitary fermions in a harmonic trap, exploring and removing finite volume and discretization effects by varying the parameters, $L,L_0=\left(\kappa M\right)^{-1/4}$, and performing extrapolations in these quantities if necessary. Compare your result to the expected value of 2$\omega$, where $\omega = \sqrt{\kappa/M}$, and the mass $M$ is set in the file ``kinetic.arg". 
+\end{prob}
+
+\begin{prob}
+Construct sources for three fermions in an $l=0$ and $l=1$ state and find the lowest energies corresponding to each state at unitarity. Which $l$ corresponds to the true ground state of this system?
 \end{prob}
 
 \begin{acknowledgement}
-The author would like to thank Michael Endres, David B. Kaplan, and Jong-Wan Lee for extensive discussions, and especially M. Endres for the use of code. AN was supported in part by U.S. DOE grant No. DE-SC00046548. 
+The author would like to thank Michael Endres, David B. Kaplan, and Jong-Wan Lee for extensive discussions, and especially M. Endres for the development of and permission to use this code. AN was supported in part by U.S. DOE grant No. DE-SC00046548. 
 \end{acknowledgement}
 
 \bibliographystyle{spphys}
